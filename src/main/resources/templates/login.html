@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.w3.org/1999/xhtml" xmlns:sec = "http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+<form th:action="@{/auth}" method="post">
+    <tr>
+      <td>Name</td>
+      <td><input type="text" name="username"></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><input type="password" name="password"></td>
+    </tr>
+  <button type="submit">Log in</button>
+  <a th:href = "@{/register}">Register</a>
+    </form>
+
+</body>
+</html>
