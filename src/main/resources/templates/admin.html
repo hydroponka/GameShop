@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" th:href="@{/css/addProduct.css}" />
+
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<table>
+    <tr><th>Game name</th><th>Price</th></tr>
+    <div th:each="product : ${products}" id="product-table">
+        <tr><td th:text = "${product.title}">Ячейка 3</td>
+            <td th:text = "${product.price}">Ячейка 4</td>
+            <td><form th:method = "DELETE" th:action="@{/product/{id}(id = ${product.id})}">
+                <input type="submit" value="Delete"></form>
+            </td></tr>
+    </div>
+</table>
+
+<button onclick="openForm()">Открыть форму</button>
+
+<div class="form-popup" id="myForm" th:fragment="form">
+    <form th:action="@{/admin/addProduct}" method="post" class="form-container">
+        <h2>AddProduct</h2>
+
+        <div class="form-group">
+            <label for="title"><b>Title</b></label>
+            <input type="text" name= "title" placeholder="Enter title" required id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="price"><b>Price</b></label>
+            <input type="number" name="price" placeholder="Enter price" required id="price">
+        </div>
+
+        <button type="submit" class="btn">Add</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+</div>
+<script th:src="@{/js/addProduct.js}"></script>
+</body>
+</html>

@@ -26,5 +26,4 @@ public class OrderDetails {
     private Product product;
     private BigDecimal price;
     private BigDecimal amount;
-
 }

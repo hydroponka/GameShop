@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bucket</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<table>
+  <tr><th>Game name</th><th>Price</th></tr>
+  <div th:each="product : ${bucket.getProducts()}" id="product-table">
+    <tr><td th:text = "${product.title}">Game name</td>
+      <td th:text = "${product.price}">Price</td>
+</table>
+</body>
+</html>

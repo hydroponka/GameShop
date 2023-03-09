@@ -1,7 +1,8 @@
 package by.ageenko.gameshop.service.impl;
 
 import by.ageenko.gameshop.dto.UserDto;
-import by.ageenko.gameshop.exception.WrongPasswordException;
+import by.ageenko.gameshop.exception.BucketServiceException;
+import by.ageenko.gameshop.exception.UserServiceException;
 import by.ageenko.gameshop.model.Role;
 import by.ageenko.gameshop.model.User;
 import by.ageenko.gameshop.repository.UserRepository;
@@ -11,9 +12,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +31,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean save(UserDto userDto) throws WrongPasswordException {
+    public boolean save(UserDto userDto) throws UserServiceException, BucketServiceException {
         if (!userDto.getPassword().equals(userDto.getMatchingPassword())){
-            throw new WrongPasswordException("Password is not equals");
+            throw new UserServiceException("Password is not equals");
         }
         User user = User.builder()
                 .name(userDto.getUsername())
-                .password(userDto.getPassword())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .email(userDto.getEmail())
                 .role(Role.CLIENT)
                 .build();
         userRepository.save(user);
+
         return true;
     }
 
@@ -55,5 +57,19 @@ public class UserServiceImpl implements UserService {
         return new org.springframework.security.core.userdetails.User(user.getName(),
                 user.getPassword(),
                 roles);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findByName(String name) {
+        return userRepository.findFirstByName(name);
+    }
+    @Override
+    public void save(User user){
+        userRepository.save(user);
     }
 }

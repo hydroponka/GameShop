@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.w3.org/1999/xhtml" xmlns:sec = "http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Game shop</title>
 </head>
 <body>
-<a th:href = @{/login}>Login</a>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<table>
+    <tr><th>Game name</th><th>Price</th></tr>
+    <div th:each="product : ${products}" id="product-table">
+        <tr><td th:text = "${product.title}">Game name</td>
+            <td th:text = "${product.price}">Price</td>
+            <td><form th:method = "POST" th:action="@{/{id}/bucket(id = ${product.id})}">
+                <input type="submit" value="Add to bucket"></form>
+            </td></tr>
+    </div>
+</table>
+</div>
 </body>
 </html>
