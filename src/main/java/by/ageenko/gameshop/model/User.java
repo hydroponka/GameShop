@@ -19,6 +19,8 @@ public class User {
     private Long id;
     private String name;
     private String password;
+    @Transient
+    private String matchingPassword;
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;

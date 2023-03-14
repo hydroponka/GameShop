@@ -5,19 +5,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Game shop</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div th:insert="~{fragments/menu :: #nav-menu}"></div>
-<table>
-    <tr><th>Game name</th><th>Price</th></tr>
-    <div th:each="product : ${products}" id="product-table">
-        <tr><td th:text = "${product.title}">Game name</td>
-            <td th:text = "${product.price}">Price</td>
-            <td><form th:method = "POST" th:action="@{/{id}/bucket(id = ${product.id})}">
-                <input type="submit" value="Add to bucket"></form>
-            </td></tr>
+<div th:insert="~{fragments/menu :: #navbar}"></div>
+<div class="container">
+    <nav class="navbar bg-body-tertiary">
+        <div class="container">
+            <div class=" navbar-nav ml-auto">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="row gy-5">
+        <div class="card-group mx-5 my-3" th:each="product : ${products}">
+            <div class="card" style="width: 16rem;">
+                <img th:src="${product.image}" class="card-img-top">
+                <div class="card-body">
+                    <a th:href="@{/product/{id}(id = ${product.id})}">
+                        <h5 class="card-title" th:text="${product.title}">Заголовок карточки</h5>
+                    </a>
+                    <p class="card-text" th:text="${product.description}">Небольшой пример текста, который должен
+                        основываться на названии карточки и составлять основную часть содержимого карты.</p>
+                    <p class="card-text text-right" th:text="${product.price}">Price</p>
+                    <form class="form-text text-center" th:method="POST"
+                          th:action="@{/{id}/bucket(id = ${product.id})}">
+                        <input class="btn btn-outline-primary" type="submit" value="Add to bucket"></form>
+                </div>
+            </div>
+        </div>
     </div>
-</table>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -19,7 +19,7 @@ public class BucketController {
     @GetMapping("/bucket")
     public String bucketPage(Model model, Principal principal){
         if(principal == null){
-            model.addAttribute("bucket", new Bucket());
+            return "redirect:/login";
         }
         else {
             Bucket bucket = bucketService.getBucketByUser(principal.getName());

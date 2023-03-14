@@ -1,6 +1,7 @@
 package by.ageenko.gameshop.service.impl;
 
 import by.ageenko.gameshop.exception.BucketServiceException;
+import by.ageenko.gameshop.exception.UserServiceException;
 import by.ageenko.gameshop.model.Bucket;
 import by.ageenko.gameshop.model.Product;
 import by.ageenko.gameshop.model.User;
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void addToUserBucket(Long productId, String username) throws BucketServiceException {
+    public void addToUserBucket(Long productId, String username) throws BucketServiceException, UserServiceException {
         User user = userService.findByName(username);
         if (user == null){
             throw new UsernameNotFoundException("User" + username + "not found");

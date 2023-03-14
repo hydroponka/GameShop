@@ -22,6 +22,8 @@ public class Product {
     private Long id;
     private String title;
     private BigDecimal price;
+    private String image;
+    private String description;
     @ManyToMany
     @JoinTable(name = "products_category",
             joinColumns = @JoinColumn(name = "product_id"),

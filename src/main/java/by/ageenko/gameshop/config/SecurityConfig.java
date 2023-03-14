@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .failureUrl("/login-error")
                 .loginProcessingUrl("/auth")
                 .permitAll()

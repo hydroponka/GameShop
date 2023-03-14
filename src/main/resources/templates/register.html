@@ -1,30 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/" xmlns:sec = "http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<form th:action="@{/register}" th:object = "${user}" method="post">
-    <tr>
-        <td>Name</td>
-        <td><input type="text" th:field="*{username}" name="username"></td>
-    </tr>
-    <tr>
-        <td>Email</td>
-        <td><input type="text" th:field="*{email}" name="email"></td>
-    </tr>
-    <tr>
-        <td>Password</td>
-        <td><input type="password" th:field="*{password}" name="password"></td>
-    </tr>
-    <tr>
-        <td>Password</td>
-        <td><input type="password" th:field="*{matchingPassword}" name="matchingPassword"></td>
-    </tr>
-    </table>
-    <button type="submit">Sign Up</button>
-</form>
+<div class="container">
 
+    <div class="register">
+        <img th:src="@{img/login_register/user.png}"
+             class="user" >
+        <form th:action="@{/register}" th:method="POST" th:object="${user}">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{name}" placeholder="Enter name">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" th:field="*{email}" placeholder="Enter email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Enter password">
+            <label for="confirm-password">Confirm password</label>
+            <input type="password" id="confirm-password" th:field="*{matchingPassword}" placeholder="Enter password">
+            <span class="pass-icon" id="pass-icon">
+                <img th:src="@{img/login_register/show.png}"
+                     style="width: 20px; height: 20px">
+            </span>
+            <button type="submit">SignUp</button>
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

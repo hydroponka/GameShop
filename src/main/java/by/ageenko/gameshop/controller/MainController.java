@@ -1,6 +1,7 @@
 package by.ageenko.gameshop.controller;
 
 import by.ageenko.gameshop.exception.BucketServiceException;
+import by.ageenko.gameshop.exception.UserServiceException;
 import by.ageenko.gameshop.model.Product;
 import by.ageenko.gameshop.service.BucketService;
 import by.ageenko.gameshop.service.ProductService;
@@ -28,11 +29,15 @@ public class MainController {
         return "index";
     }
     @PostMapping("/{id}/bucket")
-    public String addBucket(@PathVariable Long id, Principal principal) throws BucketServiceException {
+    public String addBucket(@PathVariable Long id, Principal principal) throws BucketServiceException, UserServiceException {
         if(principal == null){
-            return "redirect:/";
+            return "redirect:/login";
         }
         productService.addToUserBucket(id, principal.getName());
         return "redirect:/";
+    }
+    @GetMapping("/menu")
+    public String menu(){
+        return "/fragments/menu";
     }
 }

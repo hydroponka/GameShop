@@ -1,6 +1,5 @@
 package by.ageenko.gameshop.service.impl;
 
-import by.ageenko.gameshop.dto.UserDto;
 import by.ageenko.gameshop.exception.BucketServiceException;
 import by.ageenko.gameshop.exception.UserServiceException;
 import by.ageenko.gameshop.model.Role;
@@ -14,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +29,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean save(UserDto userDto) throws UserServiceException, BucketServiceException {
-        if (!userDto.getPassword().equals(userDto.getMatchingPassword())){
+    public boolean save(User user) throws UserServiceException, BucketServiceException {
+        if (!user.getPassword().equals(user.getMatchingPassword())){
             throw new UserServiceException("Password is not equals");
         }
-        User user = User.builder()
-                .name(userDto.getUsername())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .email(userDto.getEmail())
+        User newUser = User.builder()
+                .name(user.getName())
+                .password(passwordEncoder.encode(user.getPassword()))
+                .email(user.getEmail())
                 .role(Role.CLIENT)
                 .build();
-        userRepository.save(user);
+        userRepository.save(newUser);
 
         return true;
     }
@@ -67,9 +65,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByName(String name) {
         return userRepository.findFirstByName(name);
-    }
-    @Override
-    public void save(User user){
-        userRepository.save(user);
     }
 }
