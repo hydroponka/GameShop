@@ -1,6 +1,5 @@
 package by.ageenko.gameshop.service.impl;
 
-import by.ageenko.gameshop.exception.BucketServiceException;
 import by.ageenko.gameshop.exception.UserServiceException;
 import by.ageenko.gameshop.model.Role;
 import by.ageenko.gameshop.model.User;
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean save(User user) throws UserServiceException, BucketServiceException {
+    public boolean saveFromRegisterForm(User user) throws UserServiceException {
         if (!user.getPassword().equals(user.getMatchingPassword())){
             throw new UserServiceException("Password is not equals");
         }
@@ -42,6 +41,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(newUser);
 
         return true;
+    }
+
+    @Override
+    public void save(User user) throws UserServiceException {
+        userRepository.save(user);
     }
 
     @Override

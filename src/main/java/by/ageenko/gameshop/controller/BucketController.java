@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.security.Principal;
 
 @Controller
@@ -17,9 +18,9 @@ public class BucketController {
         this.bucketService = bucketService;
     }
     @GetMapping("/bucket")
-    public String bucketPage(Model model, Principal principal){
+    public String bucketPage(Model model, Principal principal) throws UserPrincipalNotFoundException {
         if(principal == null){
-            return "redirect:/login";
+            throw new UserPrincipalNotFoundException("You must be logged in");
         }
         else {
             Bucket bucket = bucketService.getBucketByUser(principal.getName());

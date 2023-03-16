@@ -44,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
         if(bucket == null){
             Bucket newBucket = bucketService.createBucket(user);
             user.setBucket(newBucket);
+            bucketService.addProduct(user.getBucket(), product);
             userService.save(user);
         }
         else {

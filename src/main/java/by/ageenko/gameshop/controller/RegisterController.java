@@ -25,7 +25,7 @@ public class RegisterController {
     }
     @PostMapping("/register")
     public String regSubmit(User user, Model model) throws UserServiceException, BucketServiceException {
-        if (userService.save(user)){
+        if (userService.saveFromRegisterForm(user)){
             return "redirect:/";
         }else {
             model.addAttribute("user", user);
