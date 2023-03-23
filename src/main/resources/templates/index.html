@@ -31,7 +31,7 @@
                     </a>
                     <p class="card-text" th:text="${product.description}">descript</p>
                     <p class="card-text text-right" th:text="${product.price}">price</p>
-                    <form class="form-text text-center" th:method="POST"
+                    <form class="form-text text-center add-product-form" th:method="POST"
                           th:action="@{/{id}/bucket(id = ${product.id})}">
                         <input class="btn btn-outline-primary" type="submit" value="Add to bucket">
                     </form>
@@ -40,8 +40,35 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<div class="row gy-5 mx-5">
+    <div class="col-md-3">
+        <form action="#" th:action="@{/categories}" th:object="${categoryForm}" method="post">
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <div th:each="category : ${categories}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" th:id="'category_' + ${category.id}" th:name="'categories[' + ${category.id} + '].selected'" th:checked="${categoryForm.categories[__${category.id}__].selected}" />
+                        <label class="form-check-label" th:for="'category_' + ${category.id}" th:text="${category.name}"></label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Фильтровать</button>
+        </form>
+    </div>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="position: fixed; bottom: 0; right: 50px; z-index: 9999;">
+    <div class="toast-header">
+        <strong class="mr-auto">Notification</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        text
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:src="@{/js/index.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -3,42 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
-    <link rel="stylesheet" th:href="@{/css/addProduct.css}" />
-
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div th:insert="~{fragments/menu :: #nav-menu}"></div>
-<table>
-    <tr><th>Game name</th><th>Price</th></tr>
-    <div th:each="product : ${products}" id="product-table">
-        <tr><td th:text = "${product.title}">Ячейка 3</td>
-            <td th:text = "${product.price}">Ячейка 4</td>
-            <td><form th:method = "DELETE" th:action="@{/product/{id}(id = ${product.id})}">
-                <input type="submit" value="Delete"></form>
-            </td></tr>
+<nav class="navbar navbar-expand-lg navbar-white bg-white" id="navbar">
+    <div th:insert="~{fragments/menu :: #home}"></div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <div th:insert="~{fragments/menu :: #admin}"></div>
+            <div th:insert="~{fragments/menu :: #logout}"></div>
+        </ul>
     </div>
-</table>
-
-<button onclick="openForm()">Открыть форму</button>
-
-<div class="form-popup" id="myForm" th:fragment="form">
-    <form th:action="@{/admin/addProduct}" method="post" class="form-container">
-        <h2>AddProduct</h2>
-
-        <div class="form-group">
-            <label for="title"><b>Title</b></label>
-            <input type="text" name= "title" placeholder="Enter title" required id="title">
+</nav>
+<div class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
+    <div class="row gy-5">
+        <div class="col">
+            <div class="card-group">
+                <div class="card" style="padding: 60px">
+                    <a th:href="@{/admin/users}" class="text-decoration-none">
+                        <i class="material-icons" style="font-size: 100px">people</i>
+                        <h5 class="card-title text-center">USERS</h5>
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="price"><b>Price</b></label>
-            <input type="number" name="price" placeholder="Enter price" required id="price">
+        <div class="col">
+            <div class="card-group">
+                <div class="card" style="padding: 60px">
+                    <a th:href="@{/admin/products}" class="text-decoration-none">
+                        <i class="material-icons" style="font-size: 100px">store</i>
+                        <h5 class="card-title text-center">PRODUCTS</h5>
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <button type="submit" class="btn">Add</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-    </form>
-</div>
-<script th:src="@{/js/addProduct.js}"></script>
+            <div class="col">
+                <div class="card-group">
+                    <div class="card" style="padding: 60px">
+                        <a th:href="@{/admin/categories}" class="text-decoration-none">
+                            <i class="material-icons" style="font-size: 100px">local_offer</i>
+                            <h5 class="card-title text-center">CATEGORIES</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card-group">
+                    <div class="card" style="padding: 60px">
+                        <a th:href="@{/admin/orders}" class="text-decoration-none">
+                            <i class="material-icons" style="font-size: 100px">assignment</i>
+                            <h5 class="card-title text-center">ORDERS</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

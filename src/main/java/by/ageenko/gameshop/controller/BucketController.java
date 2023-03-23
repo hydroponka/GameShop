@@ -23,7 +23,7 @@ public class BucketController {
             throw new UserPrincipalNotFoundException("You must be logged in");
         }
         else {
-            Bucket bucket = bucketService.getBucketByUser(principal.getName());
+            Bucket bucket = bucketService.getBucketByUsername(principal.getName());
             model.addAttribute("bucket", bucket);
         }
 

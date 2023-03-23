@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -14,10 +16,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "categories")
 public class Category {
-    private static final String SEQ_NAME = "categories_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products;
 }

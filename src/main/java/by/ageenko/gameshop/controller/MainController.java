@@ -1,16 +1,17 @@
 package by.ageenko.gameshop.controller;
 
-import by.ageenko.gameshop.exception.BucketServiceException;
-import by.ageenko.gameshop.exception.UserServiceException;
+import by.ageenko.gameshop.exception.ServiceException;
 import by.ageenko.gameshop.service.BucketService;
 import by.ageenko.gameshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.security.Principal;
+
+import static by.ageenko.gameshop.util.PageConst.home;
 
 @Controller
 public class MainController {
@@ -24,19 +25,23 @@ public class MainController {
 
     @RequestMapping({"", "/"})
     public String index(Model model, Principal principal){
-        model.addAttribute("products", productService.getAll());
+        model.addAttribute("products", productService.findAllProducts());
         if (principal != null) {
-            model.addAttribute("productCount", bucketService.getBucketByUser(principal.getName()).getProducts().size());
+            model.addAttribute("productCount", bucketService.getBucketSize(principal.getName()));
         }
-        return "index";
+        return home;
     }
 
     @PostMapping("/{id}/bucket")
-    public String addProductToBucket(@PathVariable Long id, Principal principal) throws BucketServiceException, UserServiceException{
-        if(principal == null){
-            return "redirect:/";
+    public ResponseEntity<String> addProductToBucket(@PathVariable Long id, Principal principal) throws ServiceException {
+        if (principal == null) {
+            return ResponseEntity.badRequest().body("You need to be authorized");
         }
-        productService.addToUserBucket(id, principal.getName());
-        return "redirect:/";
+        if (productService.addToUserBucket(id, principal.getName())) {
+            return ResponseEntity.ok("Product added successfully");
+        }else {
+            return ResponseEntity.badRequest().body("You need to verify your account");
+        }
     }
+
 }

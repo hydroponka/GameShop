@@ -1,19 +1,23 @@
 package by.ageenko.gameshop.controller;
 
+import by.ageenko.gameshop.model.Category;
 import by.ageenko.gameshop.model.Product;
 import by.ageenko.gameshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static by.ageenko.gameshop.util.PageConst.*;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private final ProductService productService;
@@ -21,24 +25,37 @@ public class AdminController {
     public AdminController(ProductService productService) {
         this.productService = productService;
     }
-
-    @GetMapping("/admin")
-    public String adminPage(Model model){
-        model.addAttribute("products", productService.getAll());
-        return "/admin";
+    @GetMapping()
+    public String adminPage(){
+        return adminPanel;
     }
-    @DeleteMapping("/product/{id}")
-    public String deleteProduct(@PathVariable("id") Long id){
-        productService.deleteProduct(id);
-        return "redirect:/admin";
+    @GetMapping("/products")
+    public String addForm(Model model){
+        model.addAttribute("categories", productService.findAllCategories());
+        model.addAttribute("products", productService.findAllProducts());
+        return admin_products;
     }
-
-    @PostMapping("/admin/addProduct")
-    public String addProduct(@RequestParam("title") String title, @RequestParam("price") BigDecimal price){
+    @PostMapping("/products/addProduct")
+    public String addProduct(@RequestParam("title") String title, @RequestParam("price") BigDecimal price,
+                             @RequestParam(name = "categoryIds", required = false) Set<Long> categoryIds){
+        Set<Category> categories = new HashSet<>(productService.findCategoriesById(categoryIds));
         productService.addProduct(Product.builder()
                         .title(title)
                         .price(price)
+                        .categories(categories)
                         .build());
-        return "redirect:/admin";
+        return "redirect:" + admin_products;
+    }
+
+    @GetMapping("/categories")
+    public String addCategories(Model model){
+        model.addAttribute("categories", productService.findAllCategories());
+        return admin_categories;
+    }
+
+    @PostMapping("/categories/addCategories")
+    public String addProduct(@RequestParam("title") String title){
+        productService.addCategory(title);
+        return "redirect:" + admin_categories;
     }
 }

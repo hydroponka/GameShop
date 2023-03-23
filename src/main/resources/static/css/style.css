@@ -1,78 +1,28 @@
-
-.btn-login{
-    border: none;
-    outline: none;
-    background: transparent;
-    border-bottom: 1px solid #ffffff;
-    color: white;
-    height: 30px;
-    font-size: 15px;
-}
-.login button{
-    width: 100%;
-    margin-bottom: 20px;
-}
-.login button[type = "submit"]{
-    outline: none;
-    height: 40px;
-    border-radius: 25px;
-    background-color: transparent;
-    border: 2px solid #01FBF7;
-    color: white;
-    font-size: 20px;
-    transition: .5s;
-}
-.login button[type = "submit"]:hover{
-    cursor: pointer;
-    background-color: #01FBF7;
-    color: #222222;
+body[id=register] {
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
 }
 
-.pass-icon{
-    position: absolute;
-    right: 35px;
-    top: 220px;
-    cursor: pointer;
-}
-.register input{
-    width: 100%;
-    margin-bottom: 20px;
-}
-.register  input[type = "text"],
-input[type = "password"]{
-    border: none;
-    outline: none;
-    background: transparent;
-    border-bottom: 1px solid #ffffff;
-    color: white;
-    height: 30px;
-    font-size: 15px;
-}
-.register button{
-    width: 100%;
-    margin-bottom: 20px;
-}
-.register button[type = "submit"]{
-    border: none;
-    outline: none;
-    height: 40px;
-    border-radius: 25px;
-    background-color: transparent;
-    border: 2px solid #01FBF7;
-    color: white;
-    font-size: 20px;
-    transition: .5s;
-}
-.register button[type = "submit"]:hover{
-    cursor: pointer;
-    background-color: #01FBF7;
-    color: #222222;
+.card-img-left {
+    width: 45%;
+    /* Link to your background image using in the property below! */
+    background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+    background-size: cover;
 }
 
-.pass-icon{
-    position: absolute;
-    right: 35px;
-    top: 220px;
-    cursor: pointer;
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+}
+
+.btn-google {
+    color: red !important;
+    background-color: #ea4335;
+}
+
+.btn-facebook {
+    color: #3b5998 !important;
+    background-color: #3b5998;
 }
 
