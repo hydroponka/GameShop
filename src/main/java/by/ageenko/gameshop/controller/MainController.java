@@ -26,6 +26,7 @@ public class MainController {
     @RequestMapping({"", "/"})
     public String index(Model model, Principal principal){
         model.addAttribute("products", productService.findAllProducts());
+        model.addAttribute("categories", productService.findAllCategories());
         if (principal != null) {
             model.addAttribute("productCount", bucketService.getBucketSize(principal.getName()));
         }
@@ -42,6 +43,10 @@ public class MainController {
         }else {
             return ResponseEntity.badRequest().body("You need to verify your account");
         }
+    }
+    @PostMapping("/categories")
+    public String categoryForm(@PathVariable Long id, Model model) {
+        return "redirect:" + home;
     }
 
 }

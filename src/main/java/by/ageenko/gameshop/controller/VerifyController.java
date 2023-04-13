@@ -22,7 +22,7 @@ public class VerifyController {
         if (userService.verify(code)) {
             return auth_verify_success;
         } else {
-            return auth_verify_success;
+            return auth_verify_fail;
         }
     }
 }

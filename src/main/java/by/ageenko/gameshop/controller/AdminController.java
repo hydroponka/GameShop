@@ -9,9 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static by.ageenko.gameshop.util.PageConst.*;
@@ -26,7 +24,7 @@ public class AdminController {
         this.productService = productService;
     }
     @GetMapping()
-    public String adminPage(){
+    public String adminPanel(){
         return adminPanel;
     }
     @GetMapping("/products")

@@ -42,17 +42,17 @@
 </div>
 <div class="row gy-5 mx-5">
     <div class="col-md-3">
-        <form action="#" th:action="@{/categories}" th:object="${categoryForm}" method="post">
+        <form action="#" th:action="@{/categories}" method="post">
             <div class="form-group">
-                <label for="category">Category:</label>
-                <div th:each="category : ${categories}">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" th:id="'category_' + ${category.id}" th:name="'categories[' + ${category.id} + '].selected'" th:checked="${categoryForm.categories[__${category.id}__].selected}" />
-                        <label class="form-check-label" th:for="'category_' + ${category.id}" th:text="${category.name}"></label>
-                    </div>
+                <label>Category:</label>
+                <div class="checkbox-list">
+                    <label th:each="category : ${categories}">
+                        <input type="checkbox" th:value="${category.id}" name="categoryIds">
+                        <span th:text="${category.title}"></span>
+                    </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Фильтровать</button>
+            <button type="submit" class="btn btn-primary">Filter</button>
         </form>
     </div>
 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="position: fixed; bottom: 0; right: 50px; z-index: 9999;">

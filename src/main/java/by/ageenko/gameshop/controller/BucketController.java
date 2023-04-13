@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.security.Principal;
 
+import static by.ageenko.gameshop.util.PageConst.bucket;
+
 @Controller
 public class BucketController {
     private final BucketService bucketService;
@@ -27,6 +29,6 @@ public class BucketController {
             model.addAttribute("bucket", bucket);
         }
 
-        return "bucket";
+        return bucket;
     }
 }

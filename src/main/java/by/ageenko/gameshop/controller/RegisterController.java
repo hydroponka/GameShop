@@ -34,7 +34,7 @@ public class RegisterController {
             userService.registerUser(user, getSiteURL(request));
         }catch (ServiceException e){
             model.addAttribute("errorMessage", e.getMessage());
-            return "/register";
+            return auth_register;
         }
         return auth_process_register;
     }
